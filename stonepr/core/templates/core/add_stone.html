@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <title>افزودن سنگ</title>
+</head>
+
+<body>
+
+    <h1>افزودن سنگ جدید</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+
+            ذخیره
+
+        </button>
+
+    </form>
+
+</body>
+
+</html>

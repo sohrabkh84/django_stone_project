@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <title>لیست سنگ ها</title>
+</head>
+
+<body>
+
+    <h1>لیست سنگ ها</h1>
+
+    <table border="1">
+
+        <tr>
+            <th>نام سنگ</th>
+            <th>نوع سنگ</th>
+            <th>رنگ</th>
+            <th>قیمت فروش</th>
+            <th>موجودی</th>
+        </tr>
+
+        {% for stone in stones %}
+
+        <tr>
+            <td>{{ stone.name }}</td>
+            <td>{{ stone.stone_type }}</td>
+            <td>{{ stone.color }}</td>
+            <td>{{ stone.sale_price }}</td>
+            <td>{{ stone.stock }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>

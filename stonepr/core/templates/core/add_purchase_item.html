@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <title>افزودن آیتم خرید</title>
+</head>
+
+<body class="container mt-5">
+
+    <h2>افزودن آیتم به خرید {{ purchase.id }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>سنگ:</label>
+        <select name="stone">
+            {% for stone in stones %}
+                <option value="{{ stone.id }}">{{ stone.name }}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>تعداد:</label>
+        <input type="number" name="quantity">
+
+        <br><br>
+
+        <button type="submit">ثبت</button>
+    </form>
+
+</body>
+</html>

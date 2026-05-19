@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ایجاد خرید</title>
+</head>
+
+<body class="container mt-5">
+
+    <h2>ایجاد خرید جدید</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>تامین‌کننده:</label>
+        <select name="supplier">
+            {% for s in suppliers %}
+                <option value="{{ s.id }}">{{ s }}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>کارمند:</label>
+        <select name="employee">
+            {% for e in employees %}
+                <option value="{{ e.id }}">{{ e }}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <button type="submit">ثبت خرید</button>
+    </form>
+
+</body>
+</html>
