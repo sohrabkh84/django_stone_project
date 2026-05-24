@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>ویرایش شخص</title>
+
+</head>
+
+<body class="container mt-5">
+
+<h2>ویرایش شخص</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-warning">
+
+        بروزرسانی
+
+    </button>
+
+</form>
+
+</body>
+
+</html>

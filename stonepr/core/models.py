@@ -250,7 +250,8 @@ class Purchase(models.Model):
     )
 
     purchase_date = models.DateField(
-        verbose_name='تاریخ خرید'
+        verbose_name='تاریخ خرید',
+        auto_now_add=True,
     )
 
     total_amount = models.DecimalField(

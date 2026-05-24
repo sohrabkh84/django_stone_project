@@ -31,7 +31,7 @@ class PurchaseForm(forms.ModelForm):
 
     class Meta:
         model = Purchase
-        fields = ['supplier', 'employee','purchasitem']
+        fields = ['supplier', 'employee']
 class SaleForm(forms.ModelForm):
 
     class Meta:
@@ -47,3 +47,19 @@ class SaleItemForm(forms.ModelForm):
     class Meta:
         model = SaleItem
         fields = ['stone', 'quantity']
+class SupplierForm(forms.ModelForm):
+
+    class Meta:
+        model = Supplier
+        fields = ['person', 'company_name']
+class PersonForm(forms.ModelForm):
+
+    class Meta:
+        model = Person
+
+        fields = [
+            'first_name',
+            'last_name',
+            'phone',
+            'address'
+        ]

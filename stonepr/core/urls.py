@@ -18,4 +18,11 @@ urlpatterns = [
     path('add-purchase/', add_purchase, name='add_purchase'),
     path('sales/', sale_list, name='sale_list'),
     path('add-sale/', add_sale, name='add_sale'),
-]
+    path('suppliers/', supplier_list, name='supplier_list'),
+    path('add-supplier/', add_supplier, name='add_supplier'),
+    path('edit-supplier/<int:id>/', edit_supplier, name='edit_supplier'),
+    path('delete-supplier/<int:id>/', delete_supplier, name='delete_supplier'),
+    path('persons/', person_list, name='person_list'),
+    path('add-person/', add_person, name='add_person'),
+    path('edit-person/<int:id>/', edit_person, name='edit_person'),
+    path('delete-person/<int:id>/', delete_person, name='delete_person'),]

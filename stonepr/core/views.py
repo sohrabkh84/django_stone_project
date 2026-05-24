@@ -1,7 +1,7 @@
-from django.shortcuts import render , redirect
-from .models import Stone
+from django.shortcuts import render , redirect , get_list_or_404 , get_object_or_404
+from .models import *
 from .form import *
-
+from django.http import *
 
 def stone_list(request):
 
@@ -111,24 +111,50 @@ def purchase_list(request):
     })
 def add_purchase(request):
 
+    suppliers = Supplier.objects.all()
+    employees = Employee.objects.all()
+    stones = Stone.objects.all()
+
     if request.method == "POST":
 
-        supplier_id = request.POST['supplier']
-        employee_id = request.POST['employee']
+        supplier = Supplier.objects.get(
+            id=request.POST['supplier']
+        )
 
-        supplier = Supplier.objects.get(id=supplier_id)
-        employee = Employee.objects.get(id=employee_id)
+        employee = Employee.objects.get(
+            id=request.POST['employee']
+        )
 
+        stone = Stone.objects.get(
+            id=request.POST['stone']
+        )
+
+        quantity = int(request.POST['quantity'])
+
+        # ساخت خرید
         purchase = Purchase.objects.create(
             supplier=supplier,
             employee=employee
         )
 
-        return redirect('add_purchase_item', purchase.id)
+        # ساخت آیتم خرید
+        PurchaseItem.objects.create(
+            purchase=purchase,
+            stone=stone,
+            quantity=quantity,
+            price=stone.purchase_price
+        )
+
+        # افزایش موجودی
+        stone.stock += quantity
+        stone.save()
+
+        return redirect('purchase_list')
 
     return render(request, 'core/add_purchase.html', {
-        'suppliers': Supplier.objects.all(),
-        'employees': Employee.objects.all()
+        'suppliers': suppliers,
+        'employees': employees,
+        'stones': stones
     })
 def sale_list(request):
 
@@ -199,3 +225,113 @@ def add_sale_item(request, sale_id):
         stone.save()
 
         return redirect('sale_detail', sale.id)
+def supplier_list(request):
+
+    suppliers = Supplier.objects.all()
+
+    return render(request, 'core/supplier_list.html', {
+        'suppliers': suppliers
+    })
+def add_supplier(request):
+
+    if request.method == 'POST':
+
+        form = SupplierForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('supplier_list')
+
+    else:
+
+        form = SupplierForm()
+
+    return render(request, 'core/add_supplier.html', {
+        'form': form
+    })
+def edit_supplier(request, id):
+
+    supplier = get_object_or_404(Supplier, id=id)
+
+    if request.method == 'POST':
+
+        form = SupplierForm(request.POST, instance=supplier)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('supplier_list')
+
+    else:
+
+        form = SupplierForm(instance=supplier)
+
+    return render(request, 'core/edit_supplier.html', {
+        'form': form
+    })
+def delete_supplier(request, id):
+
+    supplier = get_object_or_404(Supplier, id=id)
+
+    supplier.delete()
+
+    return redirect('supplier_list')
+
+def person_list(request):
+
+    persons = Person.objects.all()
+
+    return render(request, 'core/person_list.html', {
+        'persons': persons
+    })
+def add_person(request):
+
+    if request.method == 'POST':
+
+        form = PersonForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('person_list')
+
+    else:
+
+        form = PersonForm()
+
+    return render(request, 'core/add_person.html', {
+        'form': form
+    })
+
+def edit_person(request, id):
+
+    person = get_object_or_404(Person, id=id)
+
+    if request.method == 'POST':
+
+        form = PersonForm(request.POST, instance=person)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('person_list')
+
+    else:
+
+        form = PersonForm(instance=person)
+
+    return render(request, 'core/edit_person.html', {
+        'form': form
+    })
+def delete_person(request, id):
+
+    person = get_object_or_404(Person, id=id)
+
+    person.delete()
+
+    return redirect('person_list')
