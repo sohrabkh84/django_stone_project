@@ -1,38 +1,51 @@
-<!DOCTYPE html>
-<html lang="fa">
+<form method="post">
+    {% csrf_token %}
+    
+    <h3>اطلاعات فاکتور</h3>
+    {{ form.as_p }}
 
-<head>
-    <meta charset="UTF-8">
-    <title>ایجاد فروش</title>
-</head>
+    <hr>
 
-<body class="container mt-5">
+    <h3>اقلام فاکتور</h3>
+    {{ formset.management_form }}
+    
+    <div id="item-formset-container">
+        {% for item_form in formset %}
+            <div class="item-form-row">
+                {{ item_form.stone }}
+                {{ item_form.quantity }}
+                {% if formset.can_delete %}
+                    {{ item_form.DELETE }}
+                {% endif %}
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
 
-    <h2>ایجاد فروش جدید</h2>
+    <button type="button" id="add-item-btn">افزودن ردیف جدید</button>
+    <button type="submit">ثبت نهایی فاکتور</button>
+</form>
 
-    <form method="POST">
-        {% csrf_token %}
-
-        <label>مشتری:</label>
-        <select name="customer">
-            {% for c in customers %}
-                <option value="{{ c.id }}">{{ c }}</option>
-            {% endfor %}
-        </select>
-
-        <br><br>
-
-        <label>کارمند:</label>
-        <select name="employee">
-            {% for e in employees %}
-                <option value="{{ e.id }}">{{ e }}</option>
-            {% endfor %}
-        </select>
-
-        <br><br>
-
-        <button type="submit">ثبت فروش</button>
-    </form>
-
-</body>
-</html>
+<script>
+    // اسکریپت ساده برای شبیه‌سازی اضافه کردن ردیف جدید در متد inline formset جنگو
+    document.getElementById('add-item-btn').addEventListener('click', function() {
+        const container = document.getElementById('item-formset-container');
+        const totalForms = document.getElementById('id_items-TOTAL_FORMS');
+        const currentFormCount = parseInt(totalForms.value);
+        
+        const firstRow = container.querySelector('.item-form-row');
+        const newRow = firstRow.cloneNode(true);
+        
+        // به‌روزرسانی ایندکس‌های فرم جدید
+        newRow.innerHTML = newRow.innerHTML.replace(/-0-/g, `-${currentFormCount}-`);
+        
+        // پاک کردن مقادیر قبلی در ردیف جدید
+        const inputs = newRow.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            if (input.type !== 'hidden') input.value = '';
+        });
+        
+        container.appendChild(newRow);
+        totalForms.value = currentFormCount + 1;
+    });
+</script>

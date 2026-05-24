@@ -1,40 +1,23 @@
-<!DOCTYPE html>
-<html lang="fa">
+<form method="POST">
+    {% csrf_token %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>افزودن آیتم فروش</title>
-</head>
+    <label>سنگ:</label>
+    <select name="stone">
+        {% for stone in stones %}
+            <option value="{{ stone.id }}">
+                {{ stone.name }}
+            </option>
+        {% endfor %}
+    </select>
 
-<body class="container mt-5">
+    <br>
 
-    <h2>افزودن آیتم به فروش {{ sale.id }}</h2>
+    <label>تعداد:</label>
+    <input type="number" name="quantity">
 
-    {% if error %}
-        <p style="color:red">{{ error }}</p>
-    {% endif %}
+    <br>
 
-    <form method="POST">
-        {% csrf_token %}
-
-        <label>سنگ:</label>
-        <select name="stone">
-            {% for stone in stones %}
-                <option value="{{ stone.id }}">
-                    {{ stone.name }} ({{ stone.stock }})
-                </option>
-            {% endfor %}
-        </select>
-
-        <br><br>
-
-        <label>تعداد:</label>
-        <input type="number" name="quantity">
-
-        <br><br>
-
-        <button type="submit">ثبت فروش</button>
-    </form>
-
-</body>
-</html>
+    <button type="submit">
+        ثبت آیتم فروش
+    </button>
+</form>

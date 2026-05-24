@@ -6,15 +6,8 @@ class Person(models.Model):
         ('legal', 'حقوقی'),
     ]
 
-    first_name = models.CharField(
-        max_length=100,
-        verbose_name='نام'
-    )
-
-    last_name = models.CharField(
-        max_length=100,
-        verbose_name='نام خانوادگی'
-    )
+    first_name = models.CharField(max_length=100, verbose_name='نام')
+    last_name = models.CharField(max_length=100, verbose_name='نام خانوادگی')
 
     national_code = models.CharField(
         max_length=20,
@@ -22,14 +15,8 @@ class Person(models.Model):
         verbose_name='کد ملی / شناسه اقتصادی'
     )
 
-    phone = models.CharField(
-        max_length=15,
-        verbose_name='شماره تماس'
-    )
-
-    address = models.TextField(
-        verbose_name='آدرس'
-    )
+    phone = models.CharField(max_length=15, verbose_name='شماره تماس')
+    address = models.TextField(verbose_name='آدرس')
 
     person_type = models.CharField(
         max_length=10,
@@ -37,10 +24,7 @@ class Person(models.Model):
         verbose_name='نوع شخص'
     )
 
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='تاریخ ثبت'
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -48,331 +32,189 @@ class Person(models.Model):
     class Meta:
         verbose_name = 'شخص'
         verbose_name_plural = 'اشخاص'
+
+
+
 class Employee(models.Model):
-    person = models.OneToOneField(
-        Person,
-        on_delete=models.CASCADE,
-        verbose_name='شخص'
-    )
+    person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
-    position = models.CharField(
-        max_length=100,
-        verbose_name='سمت'
-    )
-
-    salary = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
-        verbose_name='حقوق'
-    )
-
-    hire_date = models.DateField(
-        verbose_name='تاریخ استخدام'
-    )
+    position = models.CharField(max_length=100, verbose_name='سمت')
+    salary = models.DecimalField(max_digits=12, decimal_places=2)
+    hire_date = models.DateField()
 
     def __str__(self):
         return str(self.person)
 
-    class Meta:
-        verbose_name = 'کارمند'
-        verbose_name_plural = 'کارمندان'
+
+
 class Customer(models.Model):
-    person = models.OneToOneField(
-        Person,
-        on_delete=models.CASCADE,
-        verbose_name='شخص'
-    )
+    person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
-    customer_code = models.CharField(
-        max_length=30,
-        unique=True,
-        verbose_name='کد مشتری'
-    )
+    customer_code = models.CharField(max_length=30, unique=True)
 
     def __str__(self):
         return str(self.person)
 
-    class Meta:
-        verbose_name = 'مشتری'
-        verbose_name_plural = 'مشتریان'
-class Supplier(models.Model):
-    person = models.OneToOneField(
-        Person,
-        on_delete=models.CASCADE,
-        verbose_name='شخص'
-    )
 
-    company_name = models.CharField(
-        max_length=200,
-        verbose_name='نام شرکت'
-    )
+
+class Supplier(models.Model):
+    person = models.OneToOneField(Person, on_delete=models.CASCADE)
+
+    company_name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.company_name
 
-    class Meta:
-        verbose_name = 'تامین کننده'
-        verbose_name_plural = 'تامین کنندگان'
+
+
 class Unit(models.Model):
-    name = models.CharField(
-        max_length=50,
-        verbose_name='نام واحد'
-    )
-
-    symbol = models.CharField(
-        max_length=20,
-        verbose_name='نماد واحد'
-    )
+    name = models.CharField(max_length=50)
+    symbol = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        verbose_name = 'واحد'
-        verbose_name_plural = 'واحدها'
+
+
 class StoneCategory(models.Model):
-    title = models.CharField(
-        max_length=100,
-        verbose_name='دسته بندی'
-    )
-
-    description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name='توضیحات'
-    )
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = 'دسته سنگ'
-        verbose_name_plural = 'دسته های سنگ'
+
+
+
 class StoneType(models.Model):
-    title = models.CharField(
-        max_length=100,
-        verbose_name='نوع سنگ'
-    )
-
-    category = models.ForeignKey(
-        StoneCategory,
-        on_delete=models.CASCADE,
-        verbose_name='دسته بندی'
-    )
-
-    description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name='توضیحات'
-    )
+    title = models.CharField(max_length=100)
+    category = models.ForeignKey(StoneCategory, on_delete=models.CASCADE)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = 'نوع سنگ'
-        verbose_name_plural = 'انواع سنگ'
+
 class Stone(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name='نام سنگ'
-    )
+    name = models.CharField(max_length=100)
 
-    stone_type = models.ForeignKey(
-        StoneType,
-        on_delete=models.CASCADE,
-        verbose_name='نوع سنگ'
-    )
+    stone_type = models.ForeignKey(StoneType, on_delete=models.CASCADE)
 
-    color = models.CharField(
-        max_length=50,
-        verbose_name='رنگ'
-    )
+    color = models.CharField(max_length=50)
+    size = models.CharField(max_length=50)
 
-    size = models.CharField(
-        max_length=50,
-        verbose_name='ابعاد'
-    )
+    unit = models.ForeignKey(Unit, on_delete=models.SET_NULL, null=True)
 
-    unit = models.ForeignKey(
-        Unit,
-        on_delete=models.SET_NULL,
-        null=True,
-        verbose_name='واحد'
-    )
+    purchase_price = models.DecimalField(max_digits=12, decimal_places=2)
+    sale_price = models.DecimalField(max_digits=12, decimal_places=2)
 
-    purchase_price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
-        verbose_name='قیمت خرید'
-    )
+    stock = models.PositiveIntegerField(default=0)
 
-    sale_price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
-        verbose_name='قیمت فروش'
-    )
+    description = models.TextField(blank=True, null=True)
 
-    stock = models.PositiveIntegerField(
-        default=0,
-        verbose_name='موجودی'
-    )
-
-    description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name='توضیحات'
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='تاریخ ثبت'
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        verbose_name = 'سنگ'
-        verbose_name_plural = 'سنگ ها'
+
+
 class Purchase(models.Model):
-    supplier = models.ForeignKey(
-        Supplier,
-        on_delete=models.CASCADE,
-        verbose_name='تامین کننده'
-    )
+    supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT)
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
 
-    employee = models.ForeignKey(
-        Employee,
-        on_delete=models.SET_NULL,
-        null=True,
-        verbose_name='ثبت کننده'
-    )
+    purchase_date = models.DateTimeField(auto_now_add=True)
 
-    purchase_date = models.DateField(
-        verbose_name='تاریخ خرید',
-        auto_now_add=True,
-    )
+    total_amount = models.DecimalField(max_digits=14, decimal_places=2, default=0)
 
-    total_amount = models.DecimalField(
-        max_digits=14,
-        decimal_places=2,
-        default=0,
-        verbose_name='مبلغ کل'
-    )
-
-    description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name='توضیحات'
-    )
+    def update_total(self):
+        self.total_amount = sum(item.total_price for item in self.items.all())
+        self.save()
 
     def __str__(self):
         return f"Purchase #{self.id}"
 
-    class Meta:
-        verbose_name = 'خرید'
-        verbose_name_plural = 'خریدها'
+
+
 class PurchaseItem(models.Model):
     purchase = models.ForeignKey(
         Purchase,
         on_delete=models.CASCADE,
-        related_name='items',
-        verbose_name='خرید'
+        related_name='items'
     )
 
-    stone = models.ForeignKey(
-        Stone,
-        on_delete=models.CASCADE,
-        verbose_name='سنگ'
-    )
+    stone = models.ForeignKey(Stone, on_delete=models.PROTECT)
 
-    quantity = models.PositiveIntegerField(
-        verbose_name='تعداد'
-    )
+    quantity = models.PositiveIntegerField()
 
-    unit_price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
-        verbose_name='قیمت واحد'
-    )
+    unit_price = models.DecimalField(max_digits=12, decimal_places=2)
 
     total_price = models.DecimalField(
         max_digits=14,
         decimal_places=2,
-        verbose_name='قیمت کل'
+        editable=False
     )
+
+    def save(self, *args, **kwargs):
+        self.total_price = self.quantity * self.unit_price
+        super().save(*args, **kwargs)
+        self.purchase.update_total()
+
+    def delete(self, *args, **kwargs):
+        purchase = self.purchase
+        super().delete(*args, **kwargs)
+        purchase.update_total()
 
     def __str__(self):
-        return str(self.purchase)
+        return self.stone.name
 
-    class Meta:
-        verbose_name = 'آیتم خرید'
-        verbose_name_plural = 'آیتم های خرید'
+
+
 class Sale(models.Model):
-    customer = models.ForeignKey(
-        Customer,
-        on_delete=models.CASCADE,
-        verbose_name='مشتری'
-    )
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
 
-    employee = models.ForeignKey(
-        Employee,
-        on_delete=models.SET_NULL,
-        null=True,
-        verbose_name='فروشنده'
-    )
+    sale_date = models.DateTimeField(auto_now_add=True)
 
-    sale_date = models.DateField(
-        verbose_name='تاریخ فروش'
-    )
+    total_amount = models.DecimalField(max_digits=14, decimal_places=2, default=0)
 
-    total_amount = models.DecimalField(
-        max_digits=14,
-        decimal_places=2,
-        default=0,
-        verbose_name='مبلغ کل'
-    )
+    def update_total(self):
+        self.total_amount = sum(item.total_price for item in self.items.all())
+        self.save()
 
     def __str__(self):
         return f"Sale #{self.id}"
 
-    class Meta:
-        verbose_name = 'فروش'
-        verbose_name_plural = 'فروش ها'
+
+
 class SaleItem(models.Model):
     sale = models.ForeignKey(
         Sale,
         on_delete=models.CASCADE,
-        related_name='items',
-        verbose_name='فروش'
+        related_name='items'
     )
 
-    stone = models.ForeignKey(
-        Stone,
-        on_delete=models.CASCADE,
-        verbose_name='سنگ'
-    )
+    stone = models.ForeignKey(Stone, on_delete=models.PROTECT)
 
-    quantity = models.PositiveIntegerField(
-        verbose_name='تعداد'
-    )
+    quantity = models.PositiveIntegerField()
 
-    unit_price = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
-        verbose_name='قیمت واحد'
-    )
+    unit_price = models.DecimalField(max_digits=12, decimal_places=2)
 
     total_price = models.DecimalField(
         max_digits=14,
         decimal_places=2,
-        verbose_name='قیمت کل'
+        editable=False
     )
 
-    def __str__(self):
-        return str(self.sale)
+    def save(self, *args, **kwargs):
+        self.total_price = self.quantity * self.unit_price
+        super().save(*args, **kwargs)
+        self.sale.update_total()
 
-    class Meta:
-        verbose_name = 'آیتم فروش'
-        verbose_name_plural = 'آیتم های فروش'
+    def delete(self, *args, **kwargs):
+        sale = self.sale
+        super().delete(*args, **kwargs)
+        sale.update_total()
+
+    def __str__(self):
+        return self.stone.name

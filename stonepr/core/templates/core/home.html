@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block title %}داشبورد اصلی | مدیریت سنگ‌فروشی{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="p-4 bg-white rounded shadow-sm d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1">خوش آمدید!</h2>
+                <p class="text-muted mb-0">خلاصه وضعیت سیستم مدیریت انبار و فروش سنگ</p>
+            </div>
+            <i class="bi bi-building-gear fs-1 text-primary"></i>
+        </div>
+    </div>
+</div>
+
+<h4 class="mb-3 fw-bold"><i class="bi bi-lightning-charge text-warning me-2"></i>دسترسی سریع</h4>
+<div class="row g-3 mb-5">
+    <div class="col-md-3">
+        <a href="{% url 'add_sale' %}" class="btn btn-success w-100 p-3 fs-5 fw-bold shadow-sm">
+            <i class="bi bi-cart-plus me-2"></i>ثبت فاکتور فروش جدید
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{% url 'add_purchase' %}" class="btn btn-primary w-100 p-3 fs-5 fw-bold shadow-sm">
+            <i class="bi bi-bag-plus me-2"></i>ثبت فاکتور خرید جدید
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{% url 'add_stone' %}" class="btn btn-secondary w-100 p-3 fs-5 fw-bold shadow-sm">
+            <i class="bi bi-plus-circle me-2"></i>تعریف سنگ جدید
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{% url 'add_customer' %}" class="btn btn-info text-white w-100 p-3 fs-5 fw-bold shadow-sm">
+            <i class="bi bi-person-plus me-2"></i>ثبت مشتری جدید
+        </a>
+    </div>
+</div>
+
+<h4 class="mb-3 fw-bold"><i class="bi bi-grid text-primary me-2"></i>بخش‌های سیستم</h4>
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-top border-primary border-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-box-seam fs-1 text-primary mb-3"></i>
+                <h5 class="card-title fw-bold">مدیریت انبار سنگ</h5>
+                <p class="card-text text-muted">مشاهده موجودی، قیمت‌های خرید و فروش، متراژ و ابعاد سنگ‌ها.</p>
+                <a href="{% url 'stone_list' %}" class="btn btn-outline-primary btn-sm">ورود به انبار</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-top border-success border-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-cart-check fs-1 text-success mb-3"></i>
+                <h5 class="card-title fw-bold">فروش و مشتریان</h5>
+                <p class="card-text text-muted">مدیریت لیست مشتریان حقیقی/حقوقی و تاریخچه فاکتورهای فروش صادر شده.</p>
+                <a href="{% url 'sale_list' %}" class="btn btn-outline-success btn-sm">مدیریت فروش</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-top border-warning border-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-truck fs-1 text-warning mb-3"></i>
+                <h5 class="card-title fw-bold">تامین‌کنندگان و خرید</h5>
+                <p class="card-text text-muted">ثبت سفارشات خرید ورودی به انبار و مشخصات کارخانه‌ها و شرکت‌های تامین‌کننده.</p>
+                <a href="{% url 'supplier_list' %}" class="btn btn-outline-warning btn-sm">مدیریت خرید</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
