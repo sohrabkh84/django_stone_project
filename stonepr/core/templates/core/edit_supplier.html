@@ -1,28 +1,32 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- edit_supplier.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>ویرایش تامین کننده</title>
-</head>
+{% block title %}ویرایش تامین‌کننده{% endblock %}
 
-<body class="container mt-5">
+{% block content %}
 
-<h2>ویرایش تامین کننده</h2>
+<div class="card shadow-sm border-0">
 
-<form method="POST">
+    <div class="card-body">
 
-    {% csrf_token %}
+        <h3 class="mb-4">
+            ویرایش تامین‌کننده
+        </h3>
 
-    {{ form.as_p }}
+        <form method="POST">
 
-    <button type="submit" class="btn btn-warning">
+            {% csrf_token %}
 
-        بروزرسانی
+            {{ form.as_p }}
 
-    </button>
+            <button type="submit" class="btn btn-warning">
+                بروزرسانی
+            </button>
 
-</form>
+        </form>
 
-</body>
-</html>
+    </div>
+
+</div>
+
+{% endblock %}

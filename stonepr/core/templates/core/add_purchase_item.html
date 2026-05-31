@@ -1,34 +1,48 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- add_purchase_item.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>افزودن آیتم خرید</title>
-</head>
+{% block title %}آیتم خرید{% endblock %}
 
-<body class="container mt-5">
+{% block content %}
 
-    <h2>افزودن آیتم به خرید {{ purchase.id }}</h2>
+<div class="card shadow-sm border-0">
 
-    <form method="POST">
-        {% csrf_token %}
+    <div class="card-body">
 
-        <label>سنگ:</label>
-        <select name="stone">
-            {% for stone in stones %}
-                <option value="{{ stone.id }}">{{ stone.name }}</option>
-            {% endfor %}
-        </select>
+        <h3 class="mb-4">
+            افزودن آیتم خرید
+        </h3>
 
-        <br><br>
+        <form method="POST">
 
-        <label>تعداد:</label>
-        <input type="number" name="quantity">
+            {% csrf_token %}
 
-        <br><br>
+            <label class="form-label">سنگ</label>
 
-        <button type="submit">ثبت</button>
-    </form>
+            <select name="stone" class="form-control mb-3">
 
-</body>
-</html>
+                {% for stone in stones %}
+
+                    <option value="{{ stone.id }}">
+                        {{ stone.name }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <label class="form-label">تعداد</label>
+
+            <input type="number" name="quantity" class="form-control mb-3">
+
+            <button type="submit" class="btn btn-success">
+                ثبت آیتم
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

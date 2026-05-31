@@ -1,39 +1,56 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- stone_list.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>لیست سنگ ها</title>
-</head>
+{% block title %}سنگ‌ها{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>لیست سنگ ها</h1>
+<div class="d-flex justify-content-between mb-3">
+    <h3>لیست سنگ‌ها</h3>
 
-    <table border="1">
+    <a href="{% url 'add_stone' %}" class="btn btn-primary">
+        افزودن سنگ
+    </a>
+</div>
 
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
         <tr>
-            <th>نام سنگ</th>
-            <th>نوع سنگ</th>
-            <th>رنگ</th>
-            <th>قیمت فروش</th>
+            <th>ID</th>
+            <th>نام</th>
             <th>موجودی</th>
+            <th>عملیات</th>
         </tr>
+    </thead>
+
+    <tbody>
 
         {% for stone in stones %}
 
         <tr>
+            <td>{{ stone.id }}</td>
             <td>{{ stone.name }}</td>
-            <td>{{ stone.stone_type }}</td>
-            <td>{{ stone.color }}</td>
-            <td>{{ stone.sale_price }}</td>
             <td>{{ stone.stock }}</td>
+
+            <td>
+
+                <a href="{% url 'edit_stone' stone.id %}" class="btn btn-warning btn-sm">
+                    ویرایش
+                </a>
+
+                <a href="{% url 'delete_stone' stone.id %}" class="btn btn-danger btn-sm">
+                    حذف
+                </a>
+
+            </td>
+
         </tr>
 
         {% endfor %}
 
-    </table>
+    </tbody>
 
-</body>
+</table>
 
-</html>
+{% endblock %}

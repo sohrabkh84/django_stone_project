@@ -1,23 +1,48 @@
-<form method="POST">
-    {% csrf_token %}
+<!-- add_sale_item.html -->
+{% extends 'core/base.html' %}
 
-    <label>سنگ:</label>
-    <select name="stone">
-        {% for stone in stones %}
-            <option value="{{ stone.id }}">
-                {{ stone.name }}
-            </option>
-        {% endfor %}
-    </select>
+{% block title %}آیتم فروش{% endblock %}
 
-    <br>
+{% block content %}
 
-    <label>تعداد:</label>
-    <input type="number" name="quantity">
+<div class="card shadow-sm border-0">
 
-    <br>
+    <div class="card-body">
 
-    <button type="submit">
-        ثبت آیتم فروش
-    </button>
-</form>
+        <h3 class="mb-4">
+            افزودن آیتم فروش
+        </h3>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label class="form-label">سنگ</label>
+
+            <select name="stone" class="form-control mb-3">
+
+                {% for stone in stones %}
+
+                    <option value="{{ stone.id }}">
+                        {{ stone.name }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <label class="form-label">تعداد</label>
+
+            <input type="number" name="quantity" class="form-control mb-3">
+
+            <button type="submit" class="btn btn-primary">
+                ثبت آیتم
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

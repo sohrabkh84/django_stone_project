@@ -1,37 +1,47 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- customer_list.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>مشتریان</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% block title %}مشتریان{% endblock %}
 
-<body class="container mt-5">
+{% block content %}
 
-    <h1>لیست مشتری‌ها</h1>
+<div class="d-flex justify-content-between mb-3">
 
-    <a href="{% url 'add_customer' %}" class="btn btn-primary mb-3">
+    <h3>لیست مشتریان</h3>
+
+    <a href="{% url 'add_customer' %}" class="btn btn-success">
         افزودن مشتری
     </a>
 
-    <table class="table table-bordered">
+</div>
+
+<table class="table table-bordered">
+
+    <thead class="table-dark">
 
         <tr>
+            <th>ID</th>
             <th>نام</th>
-            <th>نام خانوادگی</th>
             <th>کد مشتری</th>
             <th>عملیات</th>
         </tr>
 
+    </thead>
+
+    <tbody>
+
         {% for customer in customers %}
 
         <tr>
-            <td>{{ customer.person.first_name }}</td>
-            <td>{{ customer.person.last_name }}</td>
+
+            <td>{{ customer.id }}</td>
+
+            <td>{{ customer.person }}</td>
+
             <td>{{ customer.customer_code }}</td>
 
             <td>
+
                 <a href="{% url 'edit_customer' customer.id %}" class="btn btn-warning btn-sm">
                     ویرایش
                 </a>
@@ -39,12 +49,15 @@
                 <a href="{% url 'delete_customer' customer.id %}" class="btn btn-danger btn-sm">
                     حذف
                 </a>
+
             </td>
+
         </tr>
 
         {% endfor %}
 
-    </table>
+    </tbody>
 
-</body>
-</html>
+</table>
+
+{% endblock %}

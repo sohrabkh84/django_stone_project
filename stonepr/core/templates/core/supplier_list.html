@@ -1,60 +1,60 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- supplier_list.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>تامین کنندگان</title>
+{% block title %}تامین‌کنندگان{% endblock %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% block content %}
 
-<body class="container mt-5">
+<div class="d-flex justify-content-between mb-3">
 
-<h2>لیست تامین کنندگان</h2>
+    <h3>لیست تامین‌کنندگان</h3>
 
-<a href="{% url 'add_supplier' %}" class="btn btn-primary mb-3">
+    <a href="{% url 'add_supplier' %}" class="btn btn-primary">
+        افزودن تامین‌کننده
+    </a>
 
-    افزودن تامین کننده
-
-</a>
+</div>
 
 <table class="table table-bordered">
 
-    <tr>
-        <th>نام شرکت</th>
-        <th>شخص</th>
-        <th>عملیات</th>
-    </tr>
+    <thead class="table-dark">
 
-    {% for supplier in suppliers %}
+        <tr>
+            <th>ID</th>
+            <th>نام شرکت</th>
+            <th>عملیات</th>
+        </tr>
 
-    <tr>
+    </thead>
 
-        <td>{{ supplier.company_name }}</td>
+    <tbody>
 
-        <td>{{ supplier.person }}</td>
+        {% for supplier in suppliers %}
 
-        <td>
+        <tr>
 
-            <a href="{% url 'edit_supplier' supplier.id %}" class="btn btn-warning btn-sm">
+            <td>{{ supplier.id }}</td>
 
-                ویرایش
+            <td>{{ supplier.company_name }}</td>
 
-            </a>
+            <td>
 
-            <a href="{% url 'delete_supplier' supplier.id %}" class="btn btn-danger btn-sm">
+                <a href="{% url 'edit_supplier' supplier.id %}" class="btn btn-warning btn-sm">
+                    ویرایش
+                </a>
 
-                حذف
+                <a href="{% url 'delete_supplier' supplier.id %}" class="btn btn-danger btn-sm">
+                    حذف
+                </a>
 
-            </a>
+            </td>
 
-        </td>
+        </tr>
 
-    </tr>
+        {% endfor %}
 
-    {% endfor %}
+    </tbody>
 
 </table>
 
-</body>
-</html>
+{% endblock %}

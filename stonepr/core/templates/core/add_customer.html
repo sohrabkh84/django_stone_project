@@ -2,49 +2,40 @@
 <html lang="fa">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>مشتریان</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>افزودن مشتری</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
 </head>
 
 <body class="container mt-5">
 
-    <h1>لیست مشتری‌ها</h1>
+    <h1 class="mb-4">
 
-    <a href="{% url 'add_customer' %}" class="btn btn-primary mb-3">
         افزودن مشتری
-    </a>
 
-    <table class="table table-bordered">
+    </h1>
 
-        <tr>
-            <th>نام</th>
-            <th>نام خانوادگی</th>
-            <th>کد مشتری</th>
-            <th>عملیات</th>
-        </tr>
+    <form method="POST">
 
-        {% for customer in customers %}
+        {% csrf_token %}
 
-        <tr>
-            <td>{{ customer.person.first_name }}</td>
-            <td>{{ customer.person.last_name }}</td>
-            <td>{{ customer.customer_code }}</td>
+        {{ form.as_p }}
 
-            <td>
-                <a href="{% url 'edit_customer' customer.id %}" class="btn btn-warning btn-sm">
-                    ویرایش
-                </a>
+        <button type="submit" class="btn btn-success">
 
-                <a href="{% url 'delete_customer' customer.id %}" class="btn btn-danger btn-sm">
-                    حذف
-                </a>
-            </td>
-        </tr>
+            ثبت مشتری
 
-        {% endfor %}
+        </button>
 
-    </table>
+    </form>
 
 </body>
+
 </html>

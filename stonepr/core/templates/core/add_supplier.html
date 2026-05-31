@@ -1,28 +1,76 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- add_supplier.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>افزودن تامین کننده</title>
-</head>
+{% block title %}افزودن تامین‌کننده{% endblock %}
 
-<body class="container mt-5">
+{% block content %}
 
-<h2>افزودن تامین کننده</h2>
+<div class="row justify-content-center">
 
-<form method="POST">
+    <div class="col-lg-7">
 
-    {% csrf_token %}
+        <div class="card border-0 shadow-lg">
 
-    {{ form.as_p }}
+            <div class="card-body">
 
-    <button type="submit" class="btn btn-success">
+                <div class="text-center mb-4">
 
-        ذخیره
+                    <i class="bi bi-truck display-3 text-warning"></i>
 
-    </button>
+                    <h2 class="fw-bold mt-3">
+                        افزودن تامین‌کننده جدید
+                    </h2>
 
-</form>
+                    <p class="text-muted">
+                        اطلاعات تامین‌کننده را وارد کنید
+                    </p>
 
-</body>
-</html>
+                </div>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+                            شخص
+                        </label>
+
+                        {{ form.person }}
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+                            نام شرکت
+                        </label>
+
+                        {{ form.company_name }}
+
+                    </div>
+
+                    <div class="d-grid">
+
+                        <button type="submit" class="btn btn-warning btn-lg">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            ثبت تامین‌کننده
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,51 +1,58 @@
-<form method="post">
-    {% csrf_token %}
-    
-    <h3>اطلاعات فاکتور</h3>
-    {{ form.as_p }}
+<!-- add_sale.html -->
+{% extends 'core/base.html' %}
 
-    <hr>
+{% block title %}ثبت فروش{% endblock %}
 
-    <h3>اقلام فاکتور</h3>
-    {{ formset.management_form }}
-    
-    <div id="item-formset-container">
-        {% for item_form in formset %}
-            <div class="item-form-row">
-                {{ item_form.stone }}
-                {{ item_form.quantity }}
-                {% if formset.can_delete %}
-                    {{ item_form.DELETE }}
-                {% endif %}
-                <hr>
-            </div>
-        {% endfor %}
+{% block content %}
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-body">
+
+        <h3 class="mb-4">
+            ثبت فروش جدید
+        </h3>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label class="form-label">مشتری</label>
+
+            <select name="customer" class="form-control mb-3">
+
+                {% for customer in customers %}
+
+                    <option value="{{ customer.id }}">
+                        {{ customer.person }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <label class="form-label">فروشنده</label>
+
+            <select name="employee" class="form-control mb-3">
+
+                {% for employee in employees %}
+
+                    <option value="{{ employee.id }}">
+                        {{ employee }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <button type="submit" class="btn btn-primary">
+                ادامه ثبت فروش
+            </button>
+
+        </form>
+
     </div>
 
-    <button type="button" id="add-item-btn">افزودن ردیف جدید</button>
-    <button type="submit">ثبت نهایی فاکتور</button>
-</form>
+</div>
 
-<script>
-    // اسکریپت ساده برای شبیه‌سازی اضافه کردن ردیف جدید در متد inline formset جنگو
-    document.getElementById('add-item-btn').addEventListener('click', function() {
-        const container = document.getElementById('item-formset-container');
-        const totalForms = document.getElementById('id_items-TOTAL_FORMS');
-        const currentFormCount = parseInt(totalForms.value);
-        
-        const firstRow = container.querySelector('.item-form-row');
-        const newRow = firstRow.cloneNode(true);
-        
-        // به‌روزرسانی ایندکس‌های فرم جدید
-        newRow.innerHTML = newRow.innerHTML.replace(/-0-/g, `-${currentFormCount}-`);
-        
-        // پاک کردن مقادیر قبلی در ردیف جدید
-        const inputs = newRow.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            if (input.type !== 'hidden') input.value = '';
-        });
-        
-        container.appendChild(newRow);
-        totalForms.value = currentFormCount + 1;
-    });
-</script>
+{% endblock %}

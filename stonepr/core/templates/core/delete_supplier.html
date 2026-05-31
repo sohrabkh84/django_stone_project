@@ -1,0 +1,48 @@
+<!-- delete_supplier.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}حذف تامین‌کننده{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+        <div class="card border-0 shadow-lg">
+
+            <div class="card-body text-center p-5">
+
+                <i class="bi bi-exclamation-triangle-fill text-danger display-1"></i>
+
+                <h3 class="mt-4">
+                    حذف تامین‌کننده
+                </h3>
+
+                <p class="text-muted mt-3">
+                    آیا از حذف این تامین‌کننده مطمئن هستید؟
+                </p>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="btn btn-danger px-4">
+                        حذف
+                    </button>
+
+                    <a href="{% url 'supplier_list' %}" class="btn btn-secondary px-4">
+                        بازگشت
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

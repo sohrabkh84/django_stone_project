@@ -1,27 +1,32 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- edit_customer.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>ویرایش مشتری</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% block title %}ویرایش مشتری{% endblock %}
 
-<body class="container mt-5">
+{% block content %}
 
-    <h1>ویرایش مشتری</h1>
+<div class="card shadow-sm border-0">
 
-    <form method="POST">
+    <div class="card-body">
 
-        {% csrf_token %}
+        <h3 class="mb-4">
+            ویرایش مشتری
+        </h3>
 
-        {{ form.as_p }}
+        <form method="POST">
 
-        <button class="btn btn-warning">
-            بروزرسانی
-        </button>
+            {% csrf_token %}
 
-    </form>
+            {{ form.as_p }}
 
-</body>
-</html>
+            <button type="submit" class="btn btn-warning">
+                بروزرسانی
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

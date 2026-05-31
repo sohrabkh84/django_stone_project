@@ -1,29 +1,32 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- add_stone.html -->
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>افزودن سنگ</title>
-</head>
+{% block title %}افزودن سنگ{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>افزودن سنگ جدید</h1>
+<div class="card shadow-sm border-0">
 
-    <form method="POST">
+    <div class="card-body">
 
-        {% csrf_token %}
+        <h3 class="mb-4">
+            افزودن سنگ جدید
+        </h3>
 
-        {{ form.as_p }}
+        <form method="POST">
 
-        <button type="submit">
+            {% csrf_token %}
 
-            ذخیره
+            {{ form.as_p }}
 
-        </button>
+            <button type="submit" class="btn btn-primary">
+                ثبت سنگ
+            </button>
 
-    </form>
+        </form>
 
-</body>
+    </div>
 
-</html>
+</div>
+
+{% endblock %}

@@ -1,32 +1,32 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!-- add_person.html -->
+{% extends 'core/base.html' %}
 
-<head>
+{% block title %}افزودن شخص{% endblock %}
 
-    <meta charset="UTF-8">
+{% block content %}
 
-    <title>افزودن شخص</title>
+<div class="card shadow-sm border-0">
 
-</head>
+    <div class="card-body">
 
-<body class="container mt-5">
+        <h3 class="mb-4">
+            افزودن شخص جدید
+        </h3>
 
-<h2>افزودن شخص</h2>
+        <form method="POST">
 
-<form method="POST">
+            {% csrf_token %}
 
-    {% csrf_token %}
+            {{ form.as_p }}
 
-    {{ form.as_p }}
+            <button type="submit" class="btn btn-success">
+                ثبت شخص
+            </button>
 
-    <button type="submit" class="btn btn-success">
+        </form>
 
-        ذخیره
+    </div>
 
-    </button>
+</div>
 
-</form>
-
-</body>
-
-</html>
+{% endblock %}
